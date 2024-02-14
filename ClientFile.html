@@ -13,12 +13,15 @@
             Hello user
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/sdkFile.js" alt=""> -->
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/setCookie.php" alt=""> -->
-            <img src="http://localhost:8080/setCookie.js" alt="">
+            <!-- <img src="http://localhost:8080/setCookie.js" alt=""> -->
         </h1>
+        <button id="setCookie">Set Cookie</button>
+        <button id="getCookie">Get Cookie</button>
     </center>
+    <iframe id="iframe" src="http://localhost:8080/iframe.html" frameborder="0"></iframe>
 </body>
 <script>
-    document.addEventListener("click", () => {
+    // document.addEventListener("click", () => {
         // console.log("Document clicked");
 
         // fetch("https://logeshm05.github.io/CrossOrigin/sdkFile.js").then(res => {
@@ -26,6 +29,17 @@
         //         console.log("The Response is: ", res);
         //     })
         // })
+    // })
+
+    document.getElementById("setCookie").addEventListener("click", () => {
+
+    })
+
+    document.getElementById("getCookie").addEventListener("click", () => {
+        document.getElementById("iframe").contentWindow.postMessage({
+            methodName: "getData",
+            cookieKey: "TestKey1"
+        }, "*");
     })
 </script>
 </html>
