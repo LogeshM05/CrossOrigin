@@ -7,6 +7,6 @@ console.log("SDK File loaded");
 
 
 document.addEventListener("click", () => {
-    document.cookie = 'TestKey=TestValue; path=/; expires=Thu, 12 Feb 2026 12:10:24 GMT; domain=github.io; '
+    document.cookie = 'TestKey=TestValue; path=/; expires=Thu, 12 Feb 2026 12:10:24 GMT; domain=github.io; SameSite=None; Secure'
     console.log("Cookie Set");
 })
