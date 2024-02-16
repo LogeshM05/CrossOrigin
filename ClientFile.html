@@ -59,7 +59,9 @@
         }
 
         fetch(apiURL, options).then(res => {
-            console.log(res);
+            res.text().then(res=> {
+                console.log("got res: :", res)
+            })
         })
     })
 
