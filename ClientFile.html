@@ -16,7 +16,7 @@
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/sdkFile.js" alt=""> -->
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/setCookie.php" alt=""> -->
             <!-- <img src="http://localhost:8080/getCookie.js" alt=""> -->
-            <script src="http://localhost:8080/getCookie.js"></script>
+            <!-- <script src="http://localhost:8080/getCookie.js"></script> -->
         </h1>
         <button id="setCookie">Set Cookie</button>
         <button id="getCookie">Get Cookie</button>
@@ -45,26 +45,26 @@
     //     }, "*");
     // })
 
-    // document.getElementById("getCookie").addEventListener("click", () => {
-    //     let apiURL = "http://localhost:8080/getCookie.js?cookieKey=getdata";
-    //     // let payload = {
-    //     //     cookieKey: "getdata",
-    //     // }
+    document.getElementById("getCookie").addEventListener("click", () => {
+        let apiURL = "http://localhost:8080/getCookie.js?cookieKey=getdata";
+        // let payload = {
+        //     cookieKey: "getdata",
+        // }
 
-    //     // let options = {
-    //     //     method: "POST",
-    //     //     headers: {
-    //     //         "Content-Type": "application/json"
-    //     //     },
-    //     //     body: JSON.stringify(payload)
-    //     // }
+        // let options = {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(payload)
+        // }
 
-    //     fetch(apiURL).then(res => {
-    //         res.json().then(res=> {
-    //             console.log("got res: :", res)
-    //         })
-    //     })
-    // })
+        fetch(apiURL).then(res => {
+            res.json().then(res=> {
+                console.log("got res: :", res)
+            })
+        })
+    })
 
     // document.getElementById("setCookie").addEventListener("click", () => {
     //     let apiURL = "http://localhost:8080/setCookie.js?cookieKey=getdata";
