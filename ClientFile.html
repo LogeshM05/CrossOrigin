@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <!-- <script src="https://logeshm05.github.io/CrossOrigin/sdkFile.js"></script> -->
     <!-- <script src="https://logeshm05.github.io/CrossOrigin/setCookie.php"></script> -->
 </head>
+
 <body>
     <center>
         <h1>
@@ -22,13 +24,13 @@
 </body>
 <script>
     // document.addEventListener("click", () => {
-        // console.log("Document clicked");
+    // console.log("Document clicked");
 
-        // fetch("https://logeshm05.github.io/CrossOrigin/sdkFile.js").then(res => {
-        //     res.text().then(res => {
-        //         console.log("The Response is: ", res);
-        //     })
-        // })
+    // fetch("https://logeshm05.github.io/CrossOrigin/sdkFile.js").then(res => {
+    //     res.text().then(res => {
+    //         console.log("The Response is: ", res);
+    //     })
+    // })
     // })
 
     // document.getElementById("setCookie").addEventListener("click", () => {
@@ -45,7 +47,10 @@
     document.getElementById("getCookie").addEventListener("click", () => {
         let apiURL = "http://localhost:8080/getCookie";
         let payload = {
-            cookieKey: "getdata"
+            cookieKey: "getdata",
+            headers: {
+                "Content-Type": "application/json"
+            }
         }
 
         let options = {
@@ -57,6 +62,7 @@
             console.log(res);
         })
     })
-    
+
 </script>
+
 </html>
