@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Logesh Repo</title>
     <!-- <script src="https://logeshm05.github.io/CrossOrigin/sdkFile.js"></script> -->
     <!-- <script src="https://logeshm05.github.io/CrossOrigin/setCookie.php"></script> -->
 </head>
@@ -16,7 +16,7 @@
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/sdkFile.js" alt=""> -->
             <!-- <img src="https://logeshm05.github.io/CrossOrigin/setCookie.php" alt=""> -->
             <!-- <img src="http://localhost:8080/getCookie.js" alt=""> -->
-            <script src="http://localhost:8080/getCookie.js"></script>
+            <!-- <script src="http://localhost:8080/getCookie.js"></script> -->
         </h1>
         <button id="setCookie">Set Cookie</button>
         <button id="getCookie">Get Cookie</button>
@@ -24,6 +24,25 @@
     <!-- <iframe id="iframe" src="http://localhost:8080/iframe.html" frameborder="0"></iframe> -->
 </body>
 <script>
+
+    document.getElementById("getCookie").addEventListener("click", () => {
+        let script = document.createElement("script");
+        script.src = "http://localhost:8080/getCookie.js?cookieKey=getdata";
+        script.onload = (event) => {
+            console.log("On load triggered");
+        }
+
+        script.onerror = (event) => {
+            console.log("On error triggered");
+        }
+
+        document.body.appendChild(script);
+    })
+
+
+
+
+
     // document.addEventListener("click", () => {
     // console.log("Document clicked");
 
