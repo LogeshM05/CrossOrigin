@@ -28,7 +28,7 @@
     
 
 
-    let window = {}
+    // let window = {}
     function uniqueIdGenerator() {
 
         var Fingerprint = function (options) {
@@ -290,17 +290,17 @@
 
         }
         let idAtt = function (v) {
-            // if (!document.querySelector("[r_uid]")) {
-            //     try {
-            //         var btn = document.createElement("SPAN");
-            //         var attr = document.createAttribute("r_uid");
-            //         attr.value = v;
-            //         btn.setAttributeNode(attr);
-            //         document.body.appendChild(btn);
-            //     } catch (error) {
-            //         console.log("UniqueIdGenerator:: r_uid err");
-            //     };
-            // }
+            if (!document.querySelector("[r_uid]")) {
+                try {
+                    var btn = document.createElement("SPAN");
+                    var attr = document.createAttribute("r_uid");
+                    attr.value = v;
+                    btn.setAttributeNode(attr);
+                    document.body.appendChild(btn);
+                } catch (error) {
+                    console.log("UniqueIdGenerator:: r_uid err");
+                };
+            }
         }
         let setId = function () {
             return (_uuid) => {
