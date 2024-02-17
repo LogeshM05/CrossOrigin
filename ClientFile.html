@@ -29,6 +29,7 @@
 
 
     // let window = {}
+    window._resMethods = {}
     function uniqueIdGenerator() {
 
         var Fingerprint = function (options) {
@@ -269,7 +270,7 @@
 
         const decimalToHexString = number => number.toString(16).toUpperCase();
 
-        window._resMethods = {}
+        // window._resMethods = {}
         window._resMethods.decimalToHexString = decimalToHexString;
         window._resMethods.getFPID = new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true });
         window._device_info = { hash: decimalToHexString(new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true }).get()) };
@@ -351,7 +352,9 @@
 
             return payload;
 
-        } catch (error) { }
+        } catch (error) { 
+            console.log("Error Occured: ", error);
+        }
     }
 
 
