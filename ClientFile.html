@@ -25,11 +25,9 @@
 </body>
 <script>
 
-    
+    window._resMethods = {};
 
 
-    // let window = {}
-    window._resMethods = {}
     function uniqueIdGenerator() {
 
         var Fingerprint = function (options) {
@@ -44,16 +42,12 @@
                     obj.forEach(iterator, context);
                 } else if (obj.length === +obj.length) {
                     for (var i = 0, l = obj.length; i < l; i++) {
-                        try {
-                            if (iterator.call(context, obj[i], i, obj) === {}) return;
-                        } catch (error) { }
+                        if (iterator.call(context, obj[i], i, obj) === {}) return;
                     }
                 } else {
                     for (var key in obj) {
                         if (obj.hasOwnProperty(key)) {
-                            try {
-                                if (iterator.call(context, obj[key], key, obj) === {}) return;
-                            } catch (error) { }
+                            if (iterator.call(context, obj[key], key, obj) === {}) return;
                         }
                     }
                 }
@@ -110,9 +104,9 @@
                 // keys.push(navigator.platform);
                 // keys.push(navigator.doNotTrack);
                 // keys.push(this.getPluginsString());
-                if (this.canvas && this.isCanvasSupported()) {
-                    // keys.push(this.getCanvasFingerprint());
-                }
+                // if (this.canvas && this.isCanvasSupported()) {
+                //     keys.push(this.getCanvasFingerprint());
+                // }
                 if (this.hasher) {
                     return this.hasher(keys.join("###"), 31);
                 } else {
@@ -179,7 +173,7 @@
                     var elem = document.createElement("canvas");
                     return !!(elem.getContext && elem.getContext("2d"));
                 } catch (error) {
-                    // console.log("UniqueIdGenerator:: isCanvasSupported err");
+                    console.log("UniqueIdGenerator:: isCanvasSupported err");
                 }
             },
             isIE: function () {
@@ -269,8 +263,6 @@
         };
 
         const decimalToHexString = number => number.toString(16).toUpperCase();
-
-        // window._resMethods = {}
         window._resMethods.decimalToHexString = decimalToHexString;
         window._resMethods.getFPID = new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true });
         window._device_info = { hash: decimalToHexString(new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true }).get()) };
@@ -299,7 +291,7 @@
                     btn.setAttributeNode(attr);
                     document.body.appendChild(btn);
                 } catch (error) {
-                    console.log("UniqueIdGenerator:: r_uid err");
+                    // console.log("UniqueIdGenerator:: r_uid err");
                 };
             }
         }
@@ -310,17 +302,21 @@
             }
         }
 
-        // if (!document.querySelector("[r_uid]")) {
-        //     let _uuid = _device_info.hash;
-        //     setId()(_uuid);
+        if (!document.querySelector("[r_uid]")) {
+            let _uuid = _device_info.hash;
+            setId()(_uuid);
+            // console.log('UniqueIdGenerator:: ', 'DeviceId created', _uuid);
+            // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = _uuid;
 
-        // } else {
-        //     try {
-        //         idAtt(document.querySelector("[r_uid]").getAttribute("r_uid"));
-        //     } catch (error) {
-        //         console.log("UniqueIdGenerator:: Register unique ID getAttribute err");
-        //     };
-        // }
+        } else {
+            try {
+                idAtt(document.querySelector("[r_uid]").getAttribute("r_uid"));
+                // console.log('UniqueIdGenerator:: ', 'DeviceId fetched', localStorageHandler.getItem("_uuid"), document.querySelector("[r_uid]").getAttribute("r_uid"));
+                // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = localStorageHandler.getItem("_uuid");
+            } catch (error) {
+                // console.log("UniqueIdGenerator:: Register unique ID getAttribute err");
+            };
+        }
 
     }
 
@@ -352,7 +348,7 @@
 
             return payload;
 
-        } catch (error) { 
+        } catch (error) {
             console.log("Error Occured: ", error);
         }
     }
