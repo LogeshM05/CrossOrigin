@@ -375,7 +375,7 @@
 
     document.getElementById("setCookie").addEventListener("click", () => {
         let script = document.createElement("script");
-        script.src = "http://localhost:8080/getCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
+        script.src = "http://localhost:8080/setCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
         script.onload = (event) => {
             console.log("On load triggered");
         }
