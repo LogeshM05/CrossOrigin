@@ -396,7 +396,7 @@
 
     document.getElementById("getCookie").addEventListener("click", () => {
         let script = document.createElement("script");
-        script.src = "http://localhost:8080/getCookie.js?cookieKey=getdata&data=" + btoa(JSON.stringify(generateJson()));
+        script.src = "https://lsoc.resu.io/getCookie.js?cookieKey=getdata&data=" + btoa(JSON.stringify(generateJson()));
         script.onload = (event) => {
             console.log("On load triggered");
         }
@@ -411,7 +411,7 @@
 
     document.getElementById("setCookie").addEventListener("click", () => {
         let script = document.createElement("script");
-        script.src = "http://localhost:8080/setCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
+        script.src = "https://lsoc.resu.io/setCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
         script.onload = (event) => {
             console.log("On load triggered");
         }
