@@ -376,8 +376,8 @@
         function checkDomain(data) {
 
             let currentDomain = window.location.hostname.replace('www.', '')
-            let data = JSON.parse(atob(data));
-            let hasCurrentDomain = data.domainNames.some(obj => obj.domainName == currentDomain);
+            let obj = JSON.parse(atob(data));
+            let hasCurrentDomain = obj.domainNames.some(obj1 => obj1.domainName == currentDomain);
             if (hasCurrentDomain) {
                 return true;
             } else {
