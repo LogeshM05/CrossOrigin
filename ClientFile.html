@@ -5,477 +5,454 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logesh Repo</title>
-    <!-- <script src="https://logeshm05.github.io/CrossOrigin/sdkFile.js"></script> -->
-    <!-- <script src="https://logeshm05.github.io/CrossOrigin/setCookie.php"></script> -->
 </head>
 
 <body>
     <center>
-        <h1>
-            Hello user
-            <!-- <img src="https://logeshm05.github.io/CrossOrigin/sdkFile.js" alt=""> -->
-            <!-- <img src="https://logeshm05.github.io/CrossOrigin/setCookie.php" alt=""> -->
-            <!-- <img src="http://localhost:8080/getCookie.js" alt=""> -->
-            <!-- <script src="http://localhost:8080/getCookie.js"></script> -->
-        </h1>
-        <button id="setCookie">Set Cookie</button>
+        <h1>Logesh Repo</h1>
         <button id="getCookie">Get Cookie</button>
     </center>
-    <!-- <iframe id="iframe" src="http://localhost:8080/iframe.html" frameborder="0"></iframe> -->
-</body>
-<script>
+    <script>
+        window._resMethods = {};
+        // let url = "http://localhost:8080";
+        // let url = "http://10.200.1.94:7502/Campaign";
+        // let url = "https://sdk.resu.io/Campaign";
+        let url = "http://127.0.0.1:5500";
 
-    window._resMethods = {};
+        function getBrowser() {
+            try {
+                function getBrowserVersion(userAgent, regex) { return userAgent.match(regex) ? userAgent.match(regex)[2] : null };
+                const userAgent = navigator.userAgent;
+                let browser = "unkown";
 
-    function getBrowser() {
-        try {
-            function getBrowserVersion(userAgent, regex) { return userAgent.match(regex) ? userAgent.match(regex)[2] : null };
-            const userAgent = navigator.userAgent;
-            let browser = "unkown";
+                // Detect browser name
+                browser = (/chrome|crios/i).test(userAgent) && !(/opr|opera|chromium|edg|ucbrowser|googlebot/i).test(userAgent) ? 'Chrome' : browser;
+                browser = (/safari/i).test(userAgent) && !(/chromium|edg|ucbrowser|chrome|crios|opr|opera|fxios|firefox/i).test(userAgent) ? 'Safari' : browser;
+                browser = (/chromium/i).test(userAgent) ? 'Chromium' : browser;
+                browser = (/firefox|fxios/i).test(userAgent) && !(/seamonkey/i).test(userAgent) ? 'Mozilla Firefox' : browser;
+                browser = (/edg/i).test(userAgent) ? 'Edge' : browser;
+                browser = (/googlebot/i).test(userAgent) ? 'GoogleBot' : browser;
+                browser = (/opr|opera/i).test(userAgent) ? 'Opera' : browser;
+                browser = (/ucbrowser/i).test(userAgent) ? 'UCBrowser' : browser;
+                browser = (/; msie|trident/i).test(userAgent) && !(/ucbrowser/i).test(userAgent) ? 'IE' : browser;
+                browser = (!!window.navigator.brave && !!window.navigator.brave.isBrave.name && window.navigator.brave.isBrave.name == 'isBrave') ? 'Brave' : browser;
 
-            // Detect browser name
-            browser = (/chrome|crios/i).test(userAgent) && !(/opr|opera|chromium|edg|ucbrowser|googlebot/i).test(userAgent) ? 'Chrome' : browser;
-            browser = (/safari/i).test(userAgent) && !(/chromium|edg|ucbrowser|chrome|crios|opr|opera|fxios|firefox/i).test(userAgent) ? 'Safari' : browser;
-            browser = (/chromium/i).test(userAgent) ? 'Chromium' : browser;
-            browser = (/firefox|fxios/i).test(userAgent) && !(/seamonkey/i).test(userAgent) ? 'Mozilla Firefox' : browser;
-            browser = (/edg/i).test(userAgent) ? 'Edge' : browser;
-            browser = (/googlebot/i).test(userAgent) ? 'GoogleBot' : browser;
-            browser = (/opr|opera/i).test(userAgent) ? 'Opera' : browser;
-            browser = (/ucbrowser/i).test(userAgent) ? 'UCBrowser' : browser;
-            browser = (/; msie|trident/i).test(userAgent) && !(/ucbrowser/i).test(userAgent) ? 'IE' : browser;
-            browser = (!!window.navigator.brave && !!window.navigator.brave.isBrave.name && window.navigator.brave.isBrave.name == 'isBrave') ? 'Brave' : browser;
-
-            // detect browser version
-            switch (browser) {
-                case 'UCBrowser': return browser + "/" + getBrowserVersion(userAgent, /(ucbrowser)\/([\d\.]+)/i); case 'UCBrowser': return browser + "/" + getBrowserVersion(userAgent, /(ucbrowser)\/([\d\.]+)/i); case 'Edge': return browser + "/" + getBrowserVersion(userAgent, /(edge|edga|edgios|edg)\/([\d\.]+)/i); case 'GoogleBot': return browser + "/" + getBrowserVersion(userAgent, /(googlebot)\/([\d\.]+)/i); case 'Chromium': return browser + "/" + getBrowserVersion(userAgent, /(chromium)\/([\d\.]+)/i); case 'Mozilla Firefox': return browser + "/" + getBrowserVersion(userAgent, /(firefox|fxios)\/([\d\.]+)/i); case 'Chrome': return browser + "/" + getBrowserVersion(userAgent, /(chrome|crios)\/([\d\.]+)/i); case 'Safari': return browser + "/" + getBrowserVersion(userAgent, /(safari)\/([\d\.]+)/i); case 'Opera': return browser + "/" + getBrowserVersion(userAgent, /(opera|opr)\/([\d\.]+)/i); case 'IE': const version = getBrowserVersion(userAgent, /(trident)\/([\d\.]+)/i); return version ? browser + "/" + parseFloat(version) + 4.0 : browser + "/7.0"; case 'Brave': return browser + "/" + getBrowserVersion(userAgent, /(chrome|crios)\/([\d\.]+)/i);
-                default: return "unknown/0.0.0.0";
-            }
-        } catch (e) { console.log('SDK:: Error on getting browserType: ', e); return "unknown/0.0.0.0" }
-    };
-
-    const create_UUID = () => {
-        var dt = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (dt + Math.random()*16)%16 | 0;
-            dt = Math.floor(dt/16);
-            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-        });
-        return uuid;
-    }
-
-    function uniqueIdGenerator() {
-
-        var Fingerprint = function (options) {
-            var nativeForEach, nativeMap;
-            nativeForEach = Array.prototype.forEach;
-            nativeMap = Array.prototype.map;
-            this.each = function (obj, iterator, context) {
-                if (obj === null) {
-                    return;
+                // detect browser version
+                switch (browser) {
+                    case 'UCBrowser': return browser + "/" + getBrowserVersion(userAgent, /(ucbrowser)\/([\d\.]+)/i); case 'UCBrowser': return browser + "/" + getBrowserVersion(userAgent, /(ucbrowser)\/([\d\.]+)/i); case 'Edge': return browser + "/" + getBrowserVersion(userAgent, /(edge|edga|edgios|edg)\/([\d\.]+)/i); case 'GoogleBot': return browser + "/" + getBrowserVersion(userAgent, /(googlebot)\/([\d\.]+)/i); case 'Chromium': return browser + "/" + getBrowserVersion(userAgent, /(chromium)\/([\d\.]+)/i); case 'Mozilla Firefox': return browser + "/" + getBrowserVersion(userAgent, /(firefox|fxios)\/([\d\.]+)/i); case 'Chrome': return browser + "/" + getBrowserVersion(userAgent, /(chrome|crios)\/([\d\.]+)/i); case 'Safari': return browser + "/" + getBrowserVersion(userAgent, /(safari)\/([\d\.]+)/i); case 'Opera': return browser + "/" + getBrowserVersion(userAgent, /(opera|opr)\/([\d\.]+)/i); case 'IE': const version = getBrowserVersion(userAgent, /(trident)\/([\d\.]+)/i); return version ? browser + "/" + parseFloat(version) + 4.0 : browser + "/7.0"; case 'Brave': return browser + "/" + getBrowserVersion(userAgent, /(chrome|crios)\/([\d\.]+)/i);
+                    default: return "unknown/0.0.0.0";
                 }
-                if (nativeForEach && obj.forEach === nativeForEach) {
-                    obj.forEach(iterator, context);
-                } else if (obj.length === +obj.length) {
-                    for (var i = 0, l = obj.length; i < l; i++) {
-                        if (iterator.call(context, obj[i], i, obj) === {}) return;
+            } catch (e) { console.log('SDK:: Error on getting browserType: ', e); return "unknown/0.0.0.0" }
+        };
+
+        const create_UUID = () => {
+            var dt = new Date().getTime();
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (dt + Math.random() * 16) % 16 | 0;
+                dt = Math.floor(dt / 16);
+                return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            return uuid;
+        }
+
+        function uniqueIdGenerator() {
+
+            var Fingerprint = function (options) {
+                var nativeForEach, nativeMap;
+                nativeForEach = Array.prototype.forEach;
+                nativeMap = Array.prototype.map;
+                this.each = function (obj, iterator, context) {
+                    if (obj === null) {
+                        return;
                     }
-                } else {
-                    for (var key in obj) {
-                        if (obj.hasOwnProperty(key)) {
-                            if (iterator.call(context, obj[key], key, obj) === {}) return;
+                    if (nativeForEach && obj.forEach === nativeForEach) {
+                        obj.forEach(iterator, context);
+                    } else if (obj.length === +obj.length) {
+                        for (var i = 0, l = obj.length; i < l; i++) {
+                            if (iterator.call(context, obj[i], i, obj) === {}) return;
+                        }
+                    } else {
+                        for (var key in obj) {
+                            if (obj.hasOwnProperty(key)) {
+                                if (iterator.call(context, obj[key], key, obj) === {}) return;
+                            }
                         }
                     }
+                };
+                this.map = function (obj, iterator, context) {
+                    var results = [];
+                    if (obj == null) return results;
+                    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
+                    this.each(obj, function (value, index, list) {
+                        results[results.length] = iterator.call(context, value, index, list);
+                    });
+                    return results;
+                };
+                if (typeof options == "object") {
+                    this.hasher = options.hasher;
+                    this.screen_resolution = options.screen_resolution;
+                    this.screen_orientation = options.screen_orientation;
+                    this.canvas = options.canvas;
+                    this.ie_activex = options.ie_activex;
+                } else if (typeof options == "function") {
+                    this.hasher = options;
                 }
             };
-            this.map = function (obj, iterator, context) {
-                var results = [];
-                if (obj == null) return results;
-                if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-                this.each(obj, function (value, index, list) {
-                    results[results.length] = iterator.call(context, value, index, list);
-                });
-                return results;
-            };
-            if (typeof options == "object") {
-                this.hasher = options.hasher;
-                this.screen_resolution = options.screen_resolution;
-                this.screen_orientation = options.screen_orientation;
-                this.canvas = options.canvas;
-                this.ie_activex = options.ie_activex;
-            } else if (typeof options == "function") {
-                this.hasher = options;
-            }
-        };
-        Fingerprint.prototype = {
-            get: function (profileData) {
-                var keys = [];
-                try {
-                    keys.push(profileData);
-                } catch (error) { console.log("UniqueIdGenerator:: profileData passing err") };
-                // keys.push(navigator.userAgent);
-                // keys.push(navigator.language);
-                // keys.push(screen.colorDepth);
-                // if (this.screen_resolution) {
-                //     var resolution = this.getScreenResolution();
-                //     if (typeof resolution !== "undefined") {
-                //         keys.push(this.getScreenResolution().join("x"));
-                //     }
-                // }
-                // keys.push(new Date().getTimezoneOffset());
-                // keys.push(this.hasSessionStorage());
-                // keys.push(this.hasLocalStorage());
-                // keys.push(!!window.indexedDB);
-                // if (document.body) {
-                //     try {
-                //         keys.push(typeof document.body.addBehavior);
-                //     } catch (error) {
-                //         console.log("UniqueIdGenerator:: keys push err");
-                //     }
-                // } else {
-                //     keys.push(typeof undefined);
-                // }
-                // keys.push(typeof window.openDatabase);
-                // keys.push(navigator.cpuClass);
-                // keys.push(navigator.platform);
-                // keys.push(navigator.doNotTrack);
-                // keys.push(this.getPluginsString());
-                // if (this.canvas && this.isCanvasSupported()) {
-                //     keys.push(this.getCanvasFingerprint());
-                // }
-                if (this.hasher) {
-                    return this.hasher(keys.join("###"), 31);
-                } else {
-                    return this.murmurhash3_32_gc(keys.join("###"), 31);
-                }
+            Fingerprint.prototype = {
+                get: function (profileData) {
+                    var keys = [];
+                    try {
+                        keys.push(profileData);
+                    } catch (error) { console.log("UniqueIdGenerator:: profileData passing err") };
+                    // keys.push(navigator.userAgent);
+                    // keys.push(navigator.language);
+                    // keys.push(screen.colorDepth);
+                    // if (this.screen_resolution) {
+                    //     var resolution = this.getScreenResolution();
+                    //     if (typeof resolution !== "undefined") {
+                    //         keys.push(this.getScreenResolution().join("x"));
+                    //     }
+                    // }
+                    // keys.push(new Date().getTimezoneOffset());
+                    // keys.push(this.hasSessionStorage());
+                    // keys.push(this.hasLocalStorage());
+                    // keys.push(!!window.indexedDB);
+                    // if (document.body) {
+                    //     try {
+                    //         keys.push(typeof document.body.addBehavior);
+                    //     } catch (error) {
+                    //         console.log("UniqueIdGenerator:: keys push err");
+                    //     }
+                    // } else {
+                    //     keys.push(typeof undefined);
+                    // }
+                    // keys.push(typeof window.openDatabase);
+                    // keys.push(navigator.cpuClass);
+                    // keys.push(navigator.platform);
+                    // keys.push(navigator.doNotTrack);
+                    // keys.push(this.getPluginsString());
+                    // if (this.canvas && this.isCanvasSupported()) {
+                    //     keys.push(this.getCanvasFingerprint());
+                    // }
+                    if (this.hasher) {
+                        return this.hasher(keys.join("###"), 31);
+                    } else {
+                        return this.murmurhash3_32_gc(keys.join("###"), 31);
+                    }
 
-            },
-            murmurhash3_32_gc: function (key, seed) {
-                var remainder, bytes, h1, h1b, c1, c2, k1, i;
-                remainder = key.length & 3;
-                bytes = key.length - remainder;
-                h1 = seed;
-                c1 = 0xcc9e2d51;
-                c2 = 0x1b873593;
-                i = 0;
-                while (i < bytes) {
-                    k1 = (key.charCodeAt(i) & 0xff) | ((key.charCodeAt(++i) & 0xff) << 8) | ((key.charCodeAt(++i) & 0xff) << 16) | ((key.charCodeAt(++i) & 0xff) << 24);
-                    ++i;
-                    k1 = ((k1 & 0xffff) * c1 + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
-                    k1 = (k1 << 15) | (k1 >>> 17);
-                    k1 = ((k1 & 0xffff) * c2 + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
-                    h1 ^= k1;
-                    h1 = (h1 << 13) | (h1 >>> 19);
-                    h1b = ((h1 & 0xffff) * 5 + ((((h1 >>> 16) * 5) & 0xffff) << 16)) & 0xffffffff;
-                    h1 = (h1b & 0xffff) + 0x6b64 + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16);
-                }
-                k1 = 0;
-                switch (remainder) {
-                    case 3:
-                        k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
-                    case 2:
-                        k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
-                    case 1:
-                        k1 ^= key.charCodeAt(i) & 0xff;
+                },
+                murmurhash3_32_gc: function (key, seed) {
+                    var remainder, bytes, h1, h1b, c1, c2, k1, i;
+                    remainder = key.length & 3;
+                    bytes = key.length - remainder;
+                    h1 = seed;
+                    c1 = 0xcc9e2d51;
+                    c2 = 0x1b873593;
+                    i = 0;
+                    while (i < bytes) {
+                        k1 = (key.charCodeAt(i) & 0xff) | ((key.charCodeAt(++i) & 0xff) << 8) | ((key.charCodeAt(++i) & 0xff) << 16) | ((key.charCodeAt(++i) & 0xff) << 24);
+                        ++i;
                         k1 = ((k1 & 0xffff) * c1 + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
                         k1 = (k1 << 15) | (k1 >>> 17);
                         k1 = ((k1 & 0xffff) * c2 + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
                         h1 ^= k1;
-                }
-                h1 ^= key.length;
-                h1 ^= h1 >>> 16;
-                h1 = ((h1 & 0xffff) * 0x85ebca6b + ((((h1 >>> 16) * 0x85ebca6b) & 0xffff) << 16)) & 0xffffffff;
-                h1 ^= h1 >>> 13;
-                h1 = ((h1 & 0xffff) * 0xc2b2ae35 + ((((h1 >>> 16) * 0xc2b2ae35) & 0xffff) << 16)) & 0xffffffff;
-                h1 ^= h1 >>> 16;
-                return h1 >>> 0;
-            },
-            hasLocalStorage: function () {
-                try {
-                    return !!window.localStorage;
-                } catch (e) {
-                    return true;
-                }
-            },
-            hasSessionStorage: function () {
-                try {
-                    return !!window.sessionStorage;
-                } catch (e) {
-                    return true;
-                }
-            },
-            isCanvasSupported: function () {
-                try {
-                    var elem = document.createElement("canvas");
-                    return !!(elem.getContext && elem.getContext("2d"));
-                } catch (error) {
-                    console.log("UniqueIdGenerator:: isCanvasSupported err");
-                }
-            },
-            isIE: function () {
-                if (navigator.appName === "Microsoft Internet Explorer") {
-                    return true;
-                } else if (navigator.appName === "Netscape" && /Trident/.test(navigator.userAgent)) {
-                    return true;
-                }
-                return false;
-            },
-            getPluginsString: function () {
-                if (this.isIE() && this.ie_activex) {
-                    return this.getIEPluginsString();
-                } else {
-                    return this.getRegularPluginsString();
-                }
-            },
-            getRegularPluginsString: function () {
-                return this.map(
-                    navigator.plugins,
-                    function (p) {
-                        var mimeTypes = this.map(p, function (mt) {
-                            return [mt.type, mt.suffixes].join("~");
-                        }).join(",");
-                        return [p.name, p.description, mimeTypes].join("::");
-                    },
-                    this
-                ).join(";");
-            },
-            getIEPluginsString: function () {
-                if (window.ActiveXObject) {
-                    var names = [
-                        "ShockwaveFlash.ShockwaveFlash",
-                        "AcroPDF.PDF",
-                        "PDF.PdfCtrl",
-                        "QuickTime.QuickTime",
-                        "rmocx.RealPlayer G2 Control",
-                        "rmocx.RealPlayer G2 Control.1",
-                        "RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)",
-                        "RealVideo.RealVideo(tm) ActiveX Control (32-bit)",
-                        "RealPlayer",
-                        "SWCtl.SWCtl",
-                        "WMPlayer.OCX",
-                        "AgControl.AgControl",
-                        "Skype.Detection",
-                    ];
-                    return this.map(names, function (name) {
-                        try {
-                            new ActiveXObject(name);
-                            return name;
-                        } catch (e) {
-                            return null;
-                        }
-                    }).join(";");
-                } else {
-                    return "";
-                }
-            },
-            getScreenResolution: function () {
-                var resolution;
-                if (this.screen_orientation) {
-                    resolution = screen.height > screen.width ? [screen.height, screen.width] : [screen.width, screen.height];
-                } else {
-                    resolution = [screen.height, screen.width];
-                }
-                return resolution;
-            },
-            getCanvasFingerprint: function () {
-                try {
-                    var canvas = document.createElement("canvas");
-                    var ctx = canvas.getContext("2d");
-                    var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-={}|[]:"<>?;,.';
-                    ctx.textBaseline = "top";
-                    ctx.font = "14px 'Arial'";
-                    ctx.textBaseline = "alphabetic";
-                    ctx.fillStyle = "#f60";
-                    ctx.fillRect(125, 1, 62, 20);
-                    ctx.fillStyle = "#069";
-                    ctx.fillText(txt, 2, 15);
-                    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
-                    ctx.fillText(txt, 4, 17);
-                    return canvas.toDataURL();
-                } catch (error) {
-                    console.log("UniqueIdGenerator:: getCanvasFingerprint err");
-                };
-            }
-        };
-
-        const decimalToHexString = number => number.toString(16).toUpperCase();
-        window._resMethods.decimalToHexString = decimalToHexString;
-        window._resMethods.getFPID = new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true });
-        window._device_info = { hash: decimalToHexString(new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true }).get()) };
-
-        Object.freeze(window._device_info);
-
-        window.onstorage = function () {
-            console.log('UniqueIdGenerator:: ', 'on storage event emitted!');
-            check_uuid();
-        }
-        let check_uuid = () => {
-            try {
-                console.log('UniqueIdGenerator:: ', document.querySelector("[r_uid]").getAttribute("r_uid"));
-                setId()(document.querySelector("[r_uid]").getAttribute("r_uid"));
-            } catch (error) {
-                console.log("check_uuid err");
-            }
-
-        }
-        let idAtt = function (v) {
-            if (!document.querySelector("[r_uid]")) {
-                try {
-                    var btn = document.createElement("SPAN");
-                    var attr = document.createAttribute("r_uid");
-                    attr.value = v;
-                    btn.setAttributeNode(attr);
-                    document.body.appendChild(btn);
-                } catch (error) {
-                    // console.log("UniqueIdGenerator:: r_uid err");
-                };
-            }
-        }
-        let setId = function () {
-            return (_uuid) => {
-                // localStorageHandler.setItem("_uuid", _uuid);
-                idAtt(_uuid);
-            }
-        }
-
-        if (!document.querySelector("[r_uid]")) {
-            let _uuid = _device_info.hash;
-            setId()(_uuid);
-            // console.log('UniqueIdGenerator:: ', 'DeviceId created', _uuid);
-            // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = _uuid;
-
-        } else {
-            try {
-                idAtt(document.querySelector("[r_uid]").getAttribute("r_uid"));
-                // console.log('UniqueIdGenerator:: ', 'DeviceId fetched', localStorageHandler.getItem("_uuid"), document.querySelector("[r_uid]").getAttribute("r_uid"));
-                // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = localStorageHandler.getItem("_uuid");
-            } catch (error) {
-                // console.log("UniqueIdGenerator:: Register unique ID getAttribute err");
-            };
-        }
-
-    }
-
-    uniqueIdGenerator();
-    
-    function generateJson() {
-        // const standard_UUID = '802f04b4-924b-4a5b-9a4e-f88d073e40fa';
-        const standard_UUID = create_UUID();
-        try {
-            let profileID = "P_" + window._resMethods.decimalToHexString(window._resMethods.getFPID.get(standard_UUID));
-            // let domainName;
-
-            // if (req.headers.origin.includes("https")) {
-            //     domainName = req.headers.origin.replace("https://", "");
-            //     if (domainName.includes("www.")) {
-            //         domainName.replace("www.", "");
-            //     }
-            // }
-
-            let payload = {
-                "browerID": standard_UUID,
-                "browerName": getBrowser().split('/')[0],
-                "domainNames": [
-                    {
-                        "domainName": window.location.hostname.replace('www.', ''),
-                        "ProfileId": profileID,
-                        "PassportId": profileID,
-                        "campaignId": "123"
+                        h1 = (h1 << 13) | (h1 >>> 19);
+                        h1b = ((h1 & 0xffff) * 5 + ((((h1 >>> 16) * 5) & 0xffff) << 16)) & 0xffffffff;
+                        h1 = (h1b & 0xffff) + 0x6b64 + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16);
                     }
-                ]
+                    k1 = 0;
+                    switch (remainder) {
+                        case 3:
+                            k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+                        case 2:
+                            k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
+                        case 1:
+                            k1 ^= key.charCodeAt(i) & 0xff;
+                            k1 = ((k1 & 0xffff) * c1 + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
+                            k1 = (k1 << 15) | (k1 >>> 17);
+                            k1 = ((k1 & 0xffff) * c2 + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
+                            h1 ^= k1;
+                    }
+                    h1 ^= key.length;
+                    h1 ^= h1 >>> 16;
+                    h1 = ((h1 & 0xffff) * 0x85ebca6b + ((((h1 >>> 16) * 0x85ebca6b) & 0xffff) << 16)) & 0xffffffff;
+                    h1 ^= h1 >>> 13;
+                    h1 = ((h1 & 0xffff) * 0xc2b2ae35 + ((((h1 >>> 16) * 0xc2b2ae35) & 0xffff) << 16)) & 0xffffffff;
+                    h1 ^= h1 >>> 16;
+                    return h1 >>> 0;
+                },
+                hasLocalStorage: function () {
+                    try {
+                        return !!window.localStorage;
+                    } catch (e) {
+                        return true;
+                    }
+                },
+                hasSessionStorage: function () {
+                    try {
+                        return !!window.sessionStorage;
+                    } catch (e) {
+                        return true;
+                    }
+                },
+                isCanvasSupported: function () {
+                    try {
+                        var elem = document.createElement("canvas");
+                        return !!(elem.getContext && elem.getContext("2d"));
+                    } catch (error) {
+                        console.log("UniqueIdGenerator:: isCanvasSupported err");
+                    }
+                },
+                isIE: function () {
+                    if (navigator.appName === "Microsoft Internet Explorer") {
+                        return true;
+                    } else if (navigator.appName === "Netscape" && /Trident/.test(navigator.userAgent)) {
+                        return true;
+                    }
+                    return false;
+                },
+                getPluginsString: function () {
+                    if (this.isIE() && this.ie_activex) {
+                        return this.getIEPluginsString();
+                    } else {
+                        return this.getRegularPluginsString();
+                    }
+                },
+                getRegularPluginsString: function () {
+                    return this.map(
+                        navigator.plugins,
+                        function (p) {
+                            var mimeTypes = this.map(p, function (mt) {
+                                return [mt.type, mt.suffixes].join("~");
+                            }).join(",");
+                            return [p.name, p.description, mimeTypes].join("::");
+                        },
+                        this
+                    ).join(";");
+                },
+                getIEPluginsString: function () {
+                    if (window.ActiveXObject) {
+                        var names = [
+                            "ShockwaveFlash.ShockwaveFlash",
+                            "AcroPDF.PDF",
+                            "PDF.PdfCtrl",
+                            "QuickTime.QuickTime",
+                            "rmocx.RealPlayer G2 Control",
+                            "rmocx.RealPlayer G2 Control.1",
+                            "RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)",
+                            "RealVideo.RealVideo(tm) ActiveX Control (32-bit)",
+                            "RealPlayer",
+                            "SWCtl.SWCtl",
+                            "WMPlayer.OCX",
+                            "AgControl.AgControl",
+                            "Skype.Detection",
+                        ];
+                        return this.map(names, function (name) {
+                            try {
+                                new ActiveXObject(name);
+                                return name;
+                            } catch (e) {
+                                return null;
+                            }
+                        }).join(";");
+                    } else {
+                        return "";
+                    }
+                },
+                getScreenResolution: function () {
+                    var resolution;
+                    if (this.screen_orientation) {
+                        resolution = screen.height > screen.width ? [screen.height, screen.width] : [screen.width, screen.height];
+                    } else {
+                        resolution = [screen.height, screen.width];
+                    }
+                    return resolution;
+                },
+                getCanvasFingerprint: function () {
+                    try {
+                        var canvas = document.createElement("canvas");
+                        var ctx = canvas.getContext("2d");
+                        var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-={}|[]:"<>?;,.';
+                        ctx.textBaseline = "top";
+                        ctx.font = "14px 'Arial'";
+                        ctx.textBaseline = "alphabetic";
+                        ctx.fillStyle = "#f60";
+                        ctx.fillRect(125, 1, 62, 20);
+                        ctx.fillStyle = "#069";
+                        ctx.fillText(txt, 2, 15);
+                        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                        ctx.fillText(txt, 4, 17);
+                        return canvas.toDataURL();
+                    } catch (error) {
+                        console.log("UniqueIdGenerator:: getCanvasFingerprint err");
+                    };
+                }
+            };
+
+            const decimalToHexString = number => number.toString(16).toUpperCase();
+            window._resMethods.decimalToHexString = decimalToHexString;
+            window._resMethods.getFPID = new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true });
+            window._device_info = { hash: decimalToHexString(new Fingerprint({ canvas: true, ie_activex: true, screen_resolution: true }).get()) };
+
+            Object.freeze(window._device_info);
+
+            window.onstorage = function () {
+                console.log('UniqueIdGenerator:: ', 'on storage event emitted!');
+                check_uuid();
+            }
+            let check_uuid = () => {
+                try {
+                    console.log('UniqueIdGenerator:: ', document.querySelector("[r_uid]").getAttribute("r_uid"));
+                    setId()(document.querySelector("[r_uid]").getAttribute("r_uid"));
+                } catch (error) {
+                    console.log("check_uuid err");
+                }
+
+            }
+            let idAtt = function (v) {
+                if (!document.querySelector("[r_uid]")) {
+                    try {
+                        var btn = document.createElement("SPAN");
+                        var attr = document.createAttribute("r_uid");
+                        attr.value = v;
+                        btn.setAttributeNode(attr);
+                        document.body.appendChild(btn);
+                    } catch (error) {
+                        // console.log("UniqueIdGenerator:: r_uid err");
+                    };
+                }
+            }
+            let setId = function () {
+                return (_uuid) => {
+                    // localStorageHandler.setItem("_uuid", _uuid);
+                    idAtt(_uuid);
+                }
             }
 
-            return payload;
+            if (!document.querySelector("[r_uid]")) {
+                let _uuid = _device_info.hash;
+                setId()(_uuid);
+                // console.log('UniqueIdGenerator:: ', 'DeviceId created', _uuid);
+                // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = _uuid;
 
-        } catch (error) {
-            console.log("Error Occured: ", error);
-        }
-    }
+            } else {
+                try {
+                    idAtt(document.querySelector("[r_uid]").getAttribute("r_uid"));
+                    // console.log('UniqueIdGenerator:: ', 'DeviceId fetched', localStorageHandler.getItem("_uuid"), document.querySelector("[r_uid]").getAttribute("r_uid"));
+                    // window.ReWebSDK.userRegister_payloadDefault["deviceId"] = localStorageHandler.getItem("_uuid");
+                } catch (error) {
+                    // console.log("UniqueIdGenerator:: Register unique ID getAttribute err");
+                };
+            }
 
-
-
-
-    document.getElementById("getCookie").addEventListener("click", () => {
-        let script = document.createElement("script");
-        // script.src = "https://lsoc.resu.io/getCookie.js?cookieKey=getdata&data=" + btoa(JSON.stringify(generateJson()));
-        script.src = "http://127.0.0.1:5500/getCookie.js?cookieKey=getdata&data=" + btoa(JSON.stringify(generateJson()));
-        script.onload = (event) => {
-            console.log("On load triggered");
-        }
-
-        script.onerror = (event) => {
-            console.log("On error triggered");
         }
 
-        document.body.appendChild(script);
-    })
+        uniqueIdGenerator();
+
+        function generateJson() {
+
+            const standard_UUID = create_UUID();
+            try {
+                let profileID = "P_" + window._resMethods.decimalToHexString(window._resMethods.getFPID.get(standard_UUID));
 
 
-    document.getElementById("setCookie").addEventListener("click", () => {
-        let script = document.createElement("script");
-        // script.src = "https://lsoc.resu.io/setCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
-        script.src = "http://127.0.0.1:5500/setCookie.js?cookieKey=setdata&data=" + btoa(JSON.stringify(generateJson()));
-        script.onload = (event) => {
-            console.log("On load triggered");
+                let payload = {
+                    "browerID": standard_UUID,
+                    "browerName": getBrowser().split('/')[0],
+                    "domainNames": [
+                        {
+                            "domainName": window.location.hostname.replace('www.', ''),
+                            "ProfileId": profileID,
+                            "PassportId": profileID,
+                            "campaignId": "123"
+                        }
+                    ]
+                }
+
+                return payload;
+
+            } catch (error) {
+                console.log("Error Occured: ", error);
+            }
         }
 
-        script.onerror = (event) => {
-            console.log("On error triggered");
+        function checkDomain(data) {
+
+            let currentDomain = window.location.hostname.replace('www.', '')
+            let obj = JSON.parse(atob(data));
+            let hasCurrentDomain = obj.domainNames.some(obj1 => obj1.domainName == currentDomain);
+            if (hasCurrentDomain) {
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
-        document.body.appendChild(script);
-    })
+        function setCookie(data) {
 
-    // document.addEventListener("click", () => {
-    // console.log("Document clicked");
+            let json = {}
+            if (data.generateJson == true) {
+                json = generateJson();
+            } else {
+                let obj = JSON.parse(atob(data.cookieData));
+                let profileID = "P_" + window._resMethods.decimalToHexString(window._resMethods.getFPID.get(create_UUID()));
+                let dataToSet = {
+                    "domainName": window.location.hostname.replace('www.', ''),
+                    "ProfileId": profileID,
+                    "PassportId": profileID,
+                    "campaignId": "123"
+                }
 
-    // fetch("https://logeshm05.github.io/CrossOrigin/sdkFile.js").then(res => {
-    //     res.text().then(res => {
-    //         console.log("The Response is: ", res);
-    //     })
-    // })
-    // })
+                obj.domainNames.push(dataToSet);
+                json = obj;
+            }
 
-    // document.getElementById("setCookie").addEventListener("click", () => {
+            let script = document.createElement("script");
+            script.src = `${url}/setCookie.js?cookieKey=setdata&data=${btoa(JSON.stringify(json))}`;
+            script.onload = () => {
+                if (!!window.cookiePayload && window.cookiePayload.status == true) {
+                    console.log("Cookie Exists for current domain: ", window.cookiePayload.data);
+                }
+            }
+            script.onerror = () => { }
+            document.body.appendChild(script);
+        }
 
-    // })
+        document.getElementById("getCookie").addEventListener('click', () => {
+            let script = document.createElement("script");
+            script.src = `${url}/getCookie.js?cookieKey=getdata`;
+            script.onload = (event) => {
 
-    // document.getElementById("getCookie").addEventListener("click", () => {
-    //     document.getElementById("iframe").contentWindow.postMessage({
-    //         methodName: "getData",
-    //         cookieKey: "TestKey1"
-    //     }, "*");
-    // })
+                if (!!window.cookiePayload && window.cookiePayload.status == true) {
 
-    // document.getElementById("getCookie").addEventListener("click", () => {
-    //     let apiURL = "http://localhost:8080/getCookie.js?cookieKey=getdata";
-    //     // let payload = {
-    //     //     cookieKey: "getdata",
-    //     // }
+                    if (checkDomain(window.cookiePayload.data)) {
+                        console.log("Cookie Exists for current domain: ", window.cookiePayload.data);
+                    } else {
+                        console.log("Cookie does not exists for current domain, setting cookie: ");
+                        setCookie({
+                            generateJson: false,
+                            cookieData: window.cookiePayload.data
+                        });
+                    }
 
-    //     // let options = {
-    //     //     method: "POST",
-    //     //     headers: {
-    //     //         "Content-Type": "application/json"
-    //     //     },
-    //     //     body: JSON.stringify(payload)
-    //     // }
+                } else {
+                    console.log("Cookie does not exists, setting cookie: ");
+                    setCookie({
+                        generateJson: true,
+                    });
+                }
 
-    //     fetch(apiURL).then(res => {
-    //         res.json().then(res=> {
-    //             console.log("got res: :", res)
-    //         })
-    //     })
-    // })
+            }
 
-    // document.getElementById("setCookie").addEventListener("click", () => {
-    //     let apiURL = "http://localhost:8080/setCookie.js?cookieKey=getdata";
-    //     fetch(apiURL).then(res => {
-    //         res.json().then(res=> {
-    //             console.log("got res: :", res)
-    //         })
-    //     })
-    // })
+            script.onerror = (event) => {
+                console.log("On error triggered");
+            }
 
-</script>
+            document.body.appendChild(script);
+        })
+
+    </script>
+</body>
 
 </html>
