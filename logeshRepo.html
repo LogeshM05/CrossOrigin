@@ -390,6 +390,18 @@
 
         }
 
+        function makeid(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return result;
+        }
+
         function setCookie(data) {
 
             let json = {}
@@ -410,7 +422,7 @@
             }
 
             let script = document.createElement("script");
-            script.src = `${url}/setCookie.js?cookieKey=setdata&data=${btoa(JSON.stringify(json))}`;
+            script.src = `${url}/setCookie.js?cookieKey=setdata&data=${btoa(JSON.stringify(json))}&ticks=${makeid(15) + new Date().getMilliseconds()}`;
             script.onload = () => {
                 if (!!window.cookiePayload && window.cookiePayload.status == true) {
                     console.log("Cookie Exists for current domain: ", window.cookiePayload.data);
@@ -422,7 +434,7 @@
 
         document.getElementById("getCookie").addEventListener('click', () => {
             let script = document.createElement("script");
-            script.src = `${url}/getCookie.js?cookieKey=getdata`;
+            script.src = `${url}/getCookie.js?cookieKey=getdata&ticks=${makeid(15) + new Date().getMilliseconds()}`;
             script.onload = (event) => {
 
                 if (!!window.cookiePayload && window.cookiePayload.status == true) {
